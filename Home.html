@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giới Thiệu Về Lớp 10A1</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Video nền */
+    .video-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .video-pc { display: block; }
+    .video-mobile { display: none; }
+
+    @media (max-width: 768px) {
+      .video-pc { display: none; }
+      .video-mobile { display: block; }
+    }
+
+    /* Thanh menu mặc định */
+    nav {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      padding: 15px 50px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 90%;
+      margin: 20px auto;
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      box-shadow: 0 6px 20px rgba(135, 206, 250, 0.7);
+      transition: all 0.4s ease;
+      
+      /* Ẩn ban đầu để tạo hiệu ứng */
+      opacity: 0;
+      transform: translate(-50%, -30px);
+    }
+
+    /* Khi load xong sẽ hiện ra */
+    nav.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Khi cuộn xuống */
+    nav.scrolled {
+      background: rgba(30, 41, 59, 0.8); /* đậm hơn */
+      padding: 10px 20px;
+      border-radius: 12px;
+      width: 80%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    /* Link trong menu */
+    nav a, nav .plus {
+      position: relative;
+      color: rgb(102, 188, 235);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: color 0.3s ease, transform 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+    }
+
+    /* Hiệu ứng underline chạy ngang */
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #2563eb, #9333ea);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Hover đổi màu chữ gradient */
+    .my-text {
+  font-size: 48px;
+  font-weight: bold;
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* Thêm dòng này cho các trình duyệt hỗ trợ chuẩn */
+  color: transparent;    /* Đảm bảo màu chữ trong suốt */
+}
+
+
+    /* Hiệu ứng nhấn trên mobile */
+    nav a:active, nav .plus:active {
+      transform: scale(0.92);
+    }
+
+    /* Nút dấu cộng */
+    nav .plus {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 24px;
+      font-weight: bold;
+      justify-content: center;
+      transition: transform 0.4s ease, background 0.3s ease;
+    }
+
+    nav .plus:hover {
+      transform: rotate(90deg);
+      background: rgba(37, 99, 235, 0.15);
+    }
+
+    /* Nội dung giả để test cuộn */
+    .content {
+      height: 200vh;
+    }
+    @media (max-width: 768px) {
+  .video-pc { display: none; }
+  .video-mobile { display: block; }
+
+  /* Giảm cỡ chữ menu trên điện thoại */
+  nav a, nav .plus {
+    font-size: 14px;   /* nhỏ hơn */
+    padding: 8px 10px; /* thu gọn khoảng cách */
+  }
+
+  nav {
+    width: 95%; /* rộng hơn chút để đủ chỗ */
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Video nền cho PC -->
+  <video autoplay muted loop playsinline class="video-bg video-pc">
+    <source src="HomeMT.mp4" type="video/mp4">
+  </video>
+
+  <!-- Video nền cho Mobile -->
+  <video autoplay muted loop playsinline class="video-bg video-mobile">
+    <source src="HomeĐT.mp4" type="video/mp4">
+  </video>
+
+  <!-- Thanh menu -->
+  <nav id="menu">
+    <a href="Home.html">Chào Mừng</a>
+    <a href="GioiThieu.html">Giới Thiệu</a>
+    <a href="ThanhVien.html">Thành Viên</a>
+    <a href="KyNiem.html">Kỷ NIệm</a>
+    <div class="plus">+</div>
+  </nav>
+
+  <!-- Nội dung giả để test cuộn -->
+  <div class="content"></div>
+
+  <script>
+    const menu = document.getElementById("menu");
+
+    // Khi load trang -> hiện menu
+    window.addEventListener("load", () => {
+      menu.classList.add("show");
+    });
+
+    // Khi cuộn xuống -> đổi style menu
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 50) {
+        menu.classList.add("scrolled");
+      } else {
+        menu.classList.remove("scrolled");
+      }
+    });
+  </script>
+</body>
+</html>
