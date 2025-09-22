@@ -145,7 +145,7 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
 .media-preview img {
   width:100%; height:auto; display:block; border-radius:15px;
 }
-/* Gallery 3 ảnh */
+/* Gallery */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3,1fr);
@@ -158,6 +158,16 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
   transition: transform 0.3s;
 }
 .gallery img:hover { transform: scale(1.05); }
+/* Gallery chỉ có 1 ảnh => full */
+.gallery.single {
+  display: block;
+}
+.gallery.single img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  object-fit: cover;
+}
   
 /* Lightbox */
 .lightbox {
@@ -185,15 +195,14 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
  <div class="plus">+</div>
 </nav>
   
-<!-- Card chính -->
-  <div class="card">
+<!-- Card chỉ 1 ảnh -->
+<div class="card">
   <div class="card-header">
     <div class="avatar">
       <img src="avatar.png" alt="Avatar">
     </div>
     <div class="header-info">
       <span class="class-name">A1-B Phủ Lý</span>
-      <!-- Ngày giờ cố định -->
       <span class="datetime">22/09/2025 19:57</span>
     </div>
   </div>
@@ -205,7 +214,7 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
   </div>
 </div>
 
-<!-- Card chính (video) -->
+<!-- Card video -->
 <div class="card">
   <div class="card-header">
     <div class="avatar">
@@ -213,7 +222,6 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
     </div>
     <div class="header-info">
       <span class="class-name">A1-B Phủ Lý</span>
-      <!-- Ngày giờ cố định -->
       <span class="datetime">15/09/2025 14:30</span>
     </div>
   </div>
@@ -225,7 +233,7 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
   </div>
 </div>
 
-<!-- Card mới (3 ảnh) -->
+<!-- Card nhiều ảnh -->
 <div class="card">
   <div class="card-header">
     <div class="avatar">
@@ -233,7 +241,6 @@ nav .plus:hover{transform:rotate(90deg);background:rgba(210, 213, 218, 0.15);}
     </div>
     <div class="header-info">
       <span class="class-name">A1-B Phủ Lý</span>
-      <!-- Ngày giờ cố định -->
       <span class="datetime">19/09/2025 09:00</span>
     </div>
   </div>
@@ -292,13 +299,15 @@ window.addEventListener("scroll",()=>{
   if(window.scrollY>50) menu.classList.add("scrolled");
   else menu.classList.remove("scrolled");
 });
+
+// Tự động kiểm tra số ảnh trong gallery
+document.querySelectorAll('.gallery').forEach(gallery=>{
+  const imgs = gallery.querySelectorAll('img');
+  if(imgs.length === 1){
+    gallery.classList.add("single");
+  }
+});
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
